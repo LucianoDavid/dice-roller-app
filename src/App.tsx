@@ -1,73 +1,52 @@
 import { useEffect, useState } from "react";
+import { OBR } from "@owlbear-rodeo/sdk";
 import DiceSelector from "./components/DiceSelector";
-import SelectionSidebar from "./components/SelectionSidebar";
+import DiceResult from "./components/DiceResult";
 
-function App() {
-  const [rolls, setRolls] = useState<string[]>([]);
+export default function App() {
+  const [playerName, setPlayerName] = useState<string>("Jugador");
   const [selectedDice, setSelectedDice] = useState<string[]>([]);
-  const [playerName, setPlayerName] = useState("Jugador");
+  const [rollResults, setRollResults] = useState<string[]>([]);
 
-  // Obtener nombre del jugador de Owlbear
+  // Obtener el nombre del jugador desde Owlbear Rodeo
   useEffect(() => {
-    window.owr?.context.get().then((ctx: any) => {
-      setPlayerName(ctx?.player?.name || "Jugador desconocido");
+    OBR.onReady(() => {
+      OBR.player.getId().then(async (id) => {
+        const player = await OBR.player.getMetadata(id);
+        const name = player?.name || "Jugador";
+        setPlayerName(name);
+      });
     });
   }, []);
 
-  // Escuchar eventos de otros jugadores
-  useEffect(() => {
-    const unsubscribe = window.owr?.events.subscribe("dice-roll", (event: any) => {
-      const { player, type, result } = event.payload;
-      setRolls((prev) => [...prev, `${player} tiró ${type}: ${result}`]);
+  const rollDice = () => {
+    const newResults: string[] = [];
+
+    selectedDice.forEach((dice) => {
+      const max = parseInt(dice.substring(1));
+      const result = Math.floor(Math.random() * max) + 1;
+      newResults.push(`${playerName} tiró ${dice}: ${result}`);
     });
 
-    return () => unsubscribe?.();
-  }, []);
-
-  // Lógica de selección y tirada
-  const handleSelect = (diceType: string) => {
-    const result = Math.floor(Math.random() * parseInt(diceType.slice(1))) + 1;
-    setRolls([...rolls, `${playerName} tiró ${diceType}: ${result}`]);
-    setSelectedDice([...selectedDice, diceType]);
-
-    window.owr?.events.broadcast({
-      action: "dice-roll",
-      payload: {
-        player: playerName,
-        type: diceType,
-        result,
-      },
-    });
-  };
-
-  const clearRolls = () => {
-    setRolls([]);
+    setRollResults([...rollResults, ...newResults]);
     setSelectedDice([]);
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl mb-4">Bienvenido, {playerName}</h1>
-      <DiceSelector onSelect={handleSelect} />
+    <div className="p-4 max-w-md mx-auto bg-white shadow-lg rounded-xl space-y-4">
+      <h1 className="text-xl font-bold text-center">Bienvenido, {playerName}</h1>
+
+      <DiceSelector selectedDice={selectedDice} setSelectedDice={setSelectedDice} />
+
       <button
-        onClick={clearRolls}
-        className="mt-4 px-4 py-2 bg-red-500 text-white rounded"
+        className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+        onClick={rollDice}
+        disabled={selectedDice.length === 0}
       >
-        Limpiar
+        Tirar dados
       </button>
 
-      <div className="mt-6">
-        <h2 className="text-lg mb-2">Resultados:</h2>
-        <ul>
-          {rolls.map((r, i) => (
-            <li key={i}>{r}</li>
-          ))}
-        </ul>
-      </div>
-
-      <SelectionSidebar selectedDice={selectedDice} />
+      <DiceResult rollResults={rollResults} />
     </div>
   );
 }
-
-export default App;
