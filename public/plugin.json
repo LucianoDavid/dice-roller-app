@@ -3,6 +3,7 @@
   "name": "Dice Roller SPA",
   "description": "App de tiradas de dados personalizadas con historial.",
   "type": "app",
-  "url": "https://dice-roller-app-green.vercel.app/",
-  "api": "1.0.0"
+  "version": "1.0.0",
+  "url": "https://dice-roller-app-green.vercel.app/"
 }
+
