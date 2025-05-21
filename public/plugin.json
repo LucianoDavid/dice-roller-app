@@ -3,15 +3,6 @@
   "version": "1.0.0",
   "manifest_version": 1,
   "author": "Luciano David",
-  "homepage_url": "https://dice-roller-app-green.vercel.app/",
   "icon": "/logo.png",
-  "description": "App de tiradas de dados personalizadas para Daggerheart.",
-  "action": {
-    "title": "Dice Roller",
-    "icon": "/icon.svg",
-    "popover": "/",
-    "height": 700,
-    "width": 375,
-    "background_url": "/background.html"
-  }
+  "description": "App de tiradas de dados personalizadas para Daggerheart."
 }
