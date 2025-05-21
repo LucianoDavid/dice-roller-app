@@ -1,5 +1,4 @@
 {
-  "id": "dice-roller-app",
   "name": "Dice Roller SPA",
   "description": "App de tiradas de dados personalizadas con historial.",
   "type": "app",
