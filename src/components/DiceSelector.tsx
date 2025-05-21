@@ -1,4 +1,4 @@
-import { diceData } from "@/lib/diceData";
+import { diceData } from "../lib/diceData";
 import { useState } from "react";
 
 export default function DiceSelector({ onSelect }: { onSelect: (dice: string) => void }) {
