@@ -4,5 +4,13 @@
   "manifest_version": 1,
   "author": "Luciano David",
   "icon": "/logo.png",
-  "description": "App de tiradas de dados personalizadas para Daggerheart."
+  "description": "App de tiradas de dados personalizadas para Daggerheart.",
+    "action": {
+    "title": "Dice Roller",
+    "icon": "/icon.svg",
+    "popover": "/",
+    "height": 700,
+    "width": 375,
+    "background_url": "/background.html"
+  }
 }
