@@ -1,0 +1,7 @@
+1) Achicar las imagenes SVG para que sea más visible el resultado. Agrupar en la misma fila, de 3 en 3 de ser posible.
+2) Linkear el nombre del jugador con el nombre del jugador que inició sesión en Owlbear.
+3) Hacer una pequeña interfaz que se muestre para todos los jugadores cuando se realice una tirada de dados (mostrando al igual que punto 1 de 3 en 3 y el nombre del jugador).
+4) Cambiar la selcción de dados actual por la imagen svg (por ahora) y que elija la cantidad y tipo de dado haciendole click a la imagen. La misma debe tener 
+la imagen del dado que se seleccion.
+5) Hacer una pantallita de interfaz que vaya mostrando las imagenes de los dados seleccionados al costado de la selección.
+6) El botón "Limpiar" debería de borrar el historial de dados lanzados.
