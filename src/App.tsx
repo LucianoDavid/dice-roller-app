@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { OBR } from "@owlbear-rodeo/sdk";
+import OBR from "@owlbear-rodeo/sdk";
 import DiceSelector from "./components/DiceSelector";
 import DiceResult from "./components/DiceResult";
 
