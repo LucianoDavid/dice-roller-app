@@ -2,15 +2,25 @@
 import React from "react";
 
 interface DiceResultProps {
-  playerName: string;
-  diceType: string;
-  rollResult: number;
+  results: { type: string; value: number }[];
 }
 
-const DiceResult: React.FC<DiceResultProps> = ({ playerName, diceType, rollResult }) => {
+const DiceResult: React.FC<DiceResultProps> = ({ results }) => {
+  if (results.length === 0) return null;
+
+  const total = results.reduce((acc, curr) => acc + curr.value, 0);
+
   return (
-    <div style={{ marginTop: "10px", padding: "8px", border: "1px solid #ccc", borderRadius: "4px" }}>
-      <strong>{playerName}</strong> tiró <em>{diceType}</em>: <span>{rollResult}</span>
+    <div className="p-4 rounded-xl shadow bg-gray-100">
+      <h2 className="text-lg font-bold mb-2">Resultado de la tirada</h2>
+      <ul className="list-disc list-inside text-sm">
+        {results.map((result, index) => (
+          <li key={index}>
+            {result.type}: {result.value}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-2 font-semibold">Total: {total}</p>
     </div>
   );
 };
